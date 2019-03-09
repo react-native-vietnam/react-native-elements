@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Text, StyleSheet, Platform } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Text, StyleSheet, Platform } from 'react-native'
 
-import { fonts, withTheme } from '../config';
-import normalize from '../helpers/normalizeText';
+import { theme, withTheme } from '../config'
+import normalize from '../helpers/normalizeText'
 
 const TextElement = props => {
   const {
@@ -18,7 +18,7 @@ const TextElement = props => {
     h3Style,
     h4Style,
     ...rest
-  } = props;
+  } = props
 
   return (
     <Text
@@ -32,14 +32,14 @@ const TextElement = props => {
         h1 && styles.bold,
         h2 && styles.bold,
         h3 && styles.bold,
-        h4 && styles.bold,
+        h4 && styles.bold
       ])}
       {...rest}
     >
       {children}
     </Text>
-  );
-};
+  )
+}
 
 TextElement.propTypes = {
   style: Text.propTypes.style,
@@ -51,8 +51,8 @@ TextElement.propTypes = {
   h2Style: Text.propTypes.style,
   h3Style: Text.propTypes.style,
   h4Style: Text.propTypes.style,
-  children: PropTypes.node,
-};
+  children: PropTypes.node
+}
 
 TextElement.defaultProps = {
   h1: false,
@@ -64,25 +64,25 @@ TextElement.defaultProps = {
   h2Style: {},
   h3Style: {},
   h4Style: {},
-  children: '',
-};
+  children: ''
+}
 
 const styles = StyleSheet.create({
   text: {
     ...Platform.select({
       android: {
-        ...fonts.android.regular,
-      },
-    }),
+        ...theme.fonts.android.regular
+      }
+    })
   },
   bold: {
     ...Platform.select({
       android: {
-        ...fonts.android.bold,
-      },
-    }),
-  },
-});
+        ...theme.fonts.android.bold
+      }
+    })
+  }
+})
 
-export { TextElement };
-export default withTheme(TextElement, 'Text');
+export { TextElement }
+export default withTheme(TextElement, 'Text')

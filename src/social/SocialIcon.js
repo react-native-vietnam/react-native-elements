@@ -1,53 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import {
   View,
   StyleSheet,
   Platform,
   TouchableHighlight,
   ActivityIndicator,
-  Text as NativeText,
-} from 'react-native';
+  Text as NativeText
+} from 'react-native'
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Text from '../text/Text';
-import fonts from '../config/fonts';
+import Icon from 'react-native-vector-icons/FontAwesome'
+import Text from '../text/Text'
 
-import { ViewPropTypes, withTheme } from '../config';
+import { ViewPropTypes, withTheme, theme } from '../config'
 
 const log = () => {
-  console.log('please attach method to this component'); // eslint-disable-line no-console
-};
-
-const colors = {
-  'github-alt': '#000000',
-  'google-plus-official': '#dd4b39',
-  'reddit-alien': '#fc461e',
-  'stack-overflow': '#f27f33',
-  angellist: '#1c4082',
-  codepen: '#000000',
-  envelope: '#000000',
-  etsy: '#f2581e',
-  facebook: '#3b5998',
-  foursquare: '#0072b1',
-  github: '#000000',
-  gitlab: '#e14329',
-  instagram: '#517fa4',
-  linkedin: '#007bb6',
-  medium: '#02b875',
-  pinterest: '#cb2027',
-  quora: '#a82400',
-  soundcloud: '#f50',
-  steam: '#c6c3c1',
-  stumbleupon: '#EB4823',
-  tumblr: '#32506d',
-  twitch: '#6441A5',
-  twitter: '#00aced',
-  vimeo: '#aad450',
-  wechat: '#7bb32e',
-  wordpress: '#21759b',
-  youtube: '#bb0000',
-};
+  console.log('please attach method to this component') // eslint-disable-line no-console
+}
 
 const SocialIcon = props => {
   const {
@@ -72,26 +41,26 @@ const SocialIcon = props => {
     type,
     underlayColor,
     ...attributes
-  } = props;
+  } = props
 
-  let loadingElement;
+  let loadingElement
   if (loading) {
     loadingElement = (
       <ActivityIndicator
         animating
         style={StyleSheet.flatten([
           styles.activityIndicatorStyle,
-          activityIndicatorStyle,
+          activityIndicatorStyle
         ])}
         color={iconColor || 'white'}
         size={(small && 'small') || 'large'}
       />
-    );
+    )
   }
   return (
     <Component
       {...attributes}
-      underlayColor={light ? 'white' : underlayColor || colors[type]}
+      underlayColor={light ? 'white' : underlayColor || theme.icons[type]}
       onLongPress={disabled ? null : onLongPress || log}
       onPress={(!disabled || log) && (onPress || log)}
       disabled={disabled || false}
@@ -105,17 +74,17 @@ const SocialIcon = props => {
           !raised && {
             width: iconSize * 2 + 4,
             height: iconSize * 2 + 4,
-            borderRadius: iconSize * 2,
+            borderRadius: iconSize * 2
           },
-        { backgroundColor: colors[type] },
+        { backgroundColor: theme.icons[type] },
         light && { backgroundColor: 'white' },
-        style && style,
+        style && style
       ])}
     >
       <View style={styles.wrapper}>
         <Icon
           style={StyleSheet.flatten([iconStyle && iconStyle])}
-          color={light ? colors[type] : iconColor}
+          color={light ? theme.icons[type] : iconColor}
           name={type}
           size={iconSize}
         />
@@ -123,10 +92,10 @@ const SocialIcon = props => {
           <Text
             style={StyleSheet.flatten([
               styles.title,
-              light && { color: colors[type] },
+              light && { color: theme.icons[type] },
               fontFamily && { fontFamily },
               fontWeight && { fontWeight },
-              fontStyle && fontStyle,
+              fontStyle && fontStyle
             ])}
           >
             {title}
@@ -135,8 +104,8 @@ const SocialIcon = props => {
         {loading && loadingElement}
       </View>
     </Component>
-  );
-};
+  )
+}
 
 SocialIcon.propTypes = {
   Component: PropTypes.func,
@@ -158,15 +127,15 @@ SocialIcon.propTypes = {
   light: PropTypes.bool,
   fontWeight: PropTypes.string,
   fontStyle: NativeText.propTypes.style,
-  fontFamily: PropTypes.string,
-};
+  fontFamily: PropTypes.string
+}
 
 SocialIcon.defaultProps = {
   raised: true,
   iconColor: 'white',
   iconSize: 24,
-  button: false,
-};
+  button: false
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -174,51 +143,51 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   button: {
     paddingTop: 14,
-    paddingBottom: 14,
+    paddingBottom: 14
   },
   raised: {
     ...Platform.select({
       android: {
-        elevation: 2,
+        elevation: 2
       },
       default: {
         shadowColor: 'rgba(0,0,0, .4)',
         shadowOffset: { height: 1, width: 1 },
         shadowOpacity: 1,
-        shadowRadius: 1,
-      },
-    }),
+        shadowRadius: 1
+      }
+    })
   },
   wrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   title: {
     color: 'white',
     marginLeft: 15,
     ...Platform.select({
       android: {
-        ...fonts.android.black,
+        ...theme.fonts.android.black
       },
       default: {
-        fontWeight: 'bold',
-      },
-    }),
+        fontWeight: 'bold'
+      }
+    })
   },
   icon: {
     height: 52,
-    width: 52,
+    width: 52
   },
   activityIndicatorStyle: {
     marginHorizontal: 10,
-    height: 0,
-  },
-});
+    height: 0
+  }
+})
 
-export { SocialIcon };
-export default withTheme(SocialIcon, 'SocialIcon');
+export { SocialIcon }
+export default withTheme(SocialIcon, 'SocialIcon')
