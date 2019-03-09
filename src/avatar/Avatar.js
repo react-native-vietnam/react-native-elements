@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   View,
+  Text as NativeText,
   Image as RNImage,
   Platform,
   StyleSheet,
@@ -14,7 +15,7 @@ import {
 import { withTheme, ViewPropTypes } from '../config'
 import { renderNode, nodeType } from '../helpers'
 
-import Text from '../text'
+import Text from '../text/Text'
 import Icon from '../icons/Icon'
 import Image from '../image/Image'
 
@@ -205,11 +206,11 @@ Avatar.propTypes = {
   avatarStyle: ViewPropTypes.style,
   rounded: PropTypes.bool,
   title: PropTypes.string,
-  titleStyle: Text.propTypes.style,
+  titleStyle: NativeText.propTypes.style,
   overlayContainerStyle: ViewPropTypes.style,
   activeOpacity: PropTypes.number,
   icon: PropTypes.object,
-  iconStyle: Text.propTypes.style,
+  iconStyle: NativeText.propTypes.style,
   size: PropTypes.oneOfType([
     PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']),
     PropTypes.number

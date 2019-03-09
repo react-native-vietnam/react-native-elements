@@ -1,10 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text as NativeText
+} from 'react-native'
 
-import { ViewPropTypes, withTheme } from '../config';
-import { renderNode } from '../helpers';
-import TextElement from '../text/Text';
+import { ViewPropTypes, withTheme } from '../config'
+import { renderNode } from '../helpers'
+import TextElement from '../text/Text'
 
 const Badge = props => {
   const {
@@ -17,11 +22,11 @@ const Badge = props => {
     theme,
     status,
     ...attributes
-  } = props;
+  } = props
 
   const element = renderNode(TextElement, value, {
-    style: StyleSheet.flatten([styles.text, textStyle && textStyle]),
-  });
+    style: StyleSheet.flatten([styles.text, textStyle && textStyle])
+  })
 
   return (
     <View style={StyleSheet.flatten([containerStyle && containerStyle])}>
@@ -30,33 +35,33 @@ const Badge = props => {
         style={StyleSheet.flatten([
           styles.badge(theme, status),
           !element && styles.miniBadge,
-          badgeStyle && badgeStyle,
+          badgeStyle && badgeStyle
         ])}
         onPress={onPress}
       >
         {element}
       </Component>
     </View>
-  );
-};
+  )
+}
 
 Badge.propTypes = {
   containerStyle: ViewPropTypes.style,
   badgeStyle: ViewPropTypes.style,
-  textStyle: TextElement.propTypes.style,
+  textStyle: NativeText.propTypes.style,
   value: PropTypes.node,
   onPress: PropTypes.func,
   Component: PropTypes.func,
   theme: PropTypes.object,
-  status: PropTypes.oneOf(['primary', 'success', 'warning', 'error']),
-};
+  status: PropTypes.oneOf(['primary', 'success', 'warning', 'error'])
+}
 
 Badge.defaultProps = {
-  status: 'primary',
-};
+  status: 'primary'
+}
 
-const size = 18;
-const miniSize = 8;
+const size = 18
+const miniSize = 8
 
 const styles = {
   badge: (theme, status) => ({
@@ -68,21 +73,21 @@ const styles = {
     justifyContent: 'center',
     backgroundColor: theme.colors[status],
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#fff',
+    borderColor: '#fff'
   }),
   miniBadge: {
     paddingHorizontal: 0,
     paddingVertical: 0,
     minWidth: miniSize,
     height: miniSize,
-    borderRadius: miniSize / 2,
+    borderRadius: miniSize / 2
   },
   text: {
     fontSize: 12,
     color: 'white',
-    paddingHorizontal: 4,
-  },
-};
+    paddingHorizontal: 4
+  }
+}
 
-export { Badge };
-export default withTheme(Badge, 'Badge');
+export { Badge }
+export default withTheme(Badge, 'Badge')

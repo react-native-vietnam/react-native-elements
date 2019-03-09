@@ -1,66 +1,71 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {
+  ActivityIndicator,
+  View,
+  StyleSheet,
+  Text as NativeText
+} from 'react-native'
 
-import { ViewPropTypes } from '../config';
-import { renderNode, nodeType } from '../helpers';
+import { ViewPropTypes } from '../config'
+import { renderNode, nodeType } from '../helpers'
 
-import Input from '../input/Input';
-import Icon from '../icons/Icon';
-import Text from '../text/Text';
+import Input from '../input/Input'
+import Icon from '../icons/Icon'
+import Text from '../text/Text'
 
 const defaultSearchIcon = theme => ({
   type: 'material',
   size: 18,
   name: 'search',
-  color: theme.colors.grey3,
-});
+  color: theme.colors.grey3
+})
 
 const defaultClearIcon = theme => ({
   type: 'material',
   size: 18,
   name: 'clear',
-  color: theme.colors.grey3,
-});
+  color: theme.colors.grey3
+})
 
 class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-    const { value } = props;
+  constructor (props) {
+    super(props)
+    const { value } = props
     this.state = {
-      isEmpty: value ? value === '' : true,
-    };
+      isEmpty: value ? value === '' : true
+    }
   }
 
   focus = () => {
-    this.input.focus();
-  };
+    this.input.focus()
+  }
 
   blur = () => {
-    this.input.blur();
-  };
+    this.input.blur()
+  }
 
   clear = () => {
-    this.input.clear();
-    this.onChangeText('');
-    this.props.onClear();
-  };
+    this.input.clear()
+    this.onChangeText('')
+    this.props.onClear()
+  }
 
   onFocus = () => {
-    this.props.onFocus();
-  };
+    this.props.onFocus()
+  }
 
   onBlur = () => {
-    this.props.onBlur();
-  };
+    this.props.onBlur()
+  }
 
   onChangeText = text => {
-    this.props.onChangeText(text);
-    this.setState({ isEmpty: text === '' });
-  };
+    this.props.onChangeText(text)
+    this.setState({ isEmpty: text === '' })
+  }
 
-  render() {
-    const { theme, ...rest } = this.props;
+  render () {
+    const { theme, ...rest } = this.props
 
     const {
       lightTheme,
@@ -76,50 +81,50 @@ class SearchBar extends React.Component {
       loadingProps,
       placeholderTextColor = theme.colors.grey3,
       ...attributes
-    } = rest;
+    } = rest
 
-    const { isEmpty } = this.state;
-    const { style: loadingStyle, ...otherLoadingProps } = loadingProps;
+    const { isEmpty } = this.state
+    const { style: loadingStyle, ...otherLoadingProps } = loadingProps
 
     return (
       <View
         style={StyleSheet.flatten([
           styles.container(theme),
           lightTheme && styles.containerLight(theme),
-          containerStyle,
+          containerStyle
         ])}
       >
         <Input
           {...attributes}
-          testID="searchInput"
+          testID='searchInput'
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onChangeText={this.onChangeText}
           ref={input => {
-            this.input = input;
+            this.input = input
           }}
           placeholderTextColor={placeholderTextColor}
           inputStyle={StyleSheet.flatten([
             styles.inputStyle(theme),
-            inputStyle,
+            inputStyle
           ])}
           inputContainerStyle={StyleSheet.flatten([
             styles.inputContentContainer(theme),
             lightTheme && styles.inputContentContainerLight(theme),
             round && styles.round,
-            inputContainerStyle,
+            inputContainerStyle
           ])}
           containerStyle={styles.inputContainer}
           leftIcon={renderNode(Icon, searchIcon, defaultSearchIcon(theme))}
           leftIconContainerStyle={StyleSheet.flatten([
             styles.leftIconContainerStyle,
-            leftIconContainerStyle,
+            leftIconContainerStyle
           ])}
           rightIcon={
             <View style={{ flexDirection: 'row' }}>
               {showLoading && (
                 <ActivityIndicator
-                  key="loading"
+                  key='loading'
                   style={StyleSheet.flatten([{ marginRight: 5 }, loadingStyle])}
                   {...otherLoadingProps}
                 />
@@ -129,17 +134,17 @@ class SearchBar extends React.Component {
                 renderNode(Icon, clearIcon, {
                   ...defaultClearIcon(theme),
                   key: 'cancel',
-                  onPress: this.clear,
+                  onPress: this.clear
                 })}
             </View>
           }
           rightIconContainerStyle={StyleSheet.flatten([
             styles.rightIconContainerStyle,
-            rightIconContainerStyle,
+            rightIconContainerStyle
           ])}
         />
       </View>
-    );
+    )
   }
 }
 
@@ -153,7 +158,7 @@ SearchBar.propTypes = {
   leftIconContainerStyle: ViewPropTypes.style,
   rightIconContainerStyle: ViewPropTypes.style,
   inputContainerStyle: ViewPropTypes.style,
-  inputStyle: Text.propTypes.style,
+  inputStyle: NativeText.propTypes.style,
   onClear: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
@@ -161,8 +166,8 @@ SearchBar.propTypes = {
   placeholderTextColor: PropTypes.string,
   lightTheme: PropTypes.bool,
   round: PropTypes.bool,
-  theme: PropTypes.object,
-};
+  theme: PropTypes.object
+}
 
 SearchBar.defaultProps = {
   value: '',
@@ -173,8 +178,8 @@ SearchBar.defaultProps = {
   onClear: () => null,
   onFocus: () => null,
   onBlur: () => null,
-  onChangeText: () => null,
-};
+  onChangeText: () => null
+}
 
 const styles = {
   container: theme => ({
@@ -183,39 +188,39 @@ const styles = {
     borderBottomColor: '#000',
     borderTopColor: '#000',
     padding: 8,
-    backgroundColor: theme.colors.grey0,
+    backgroundColor: theme.colors.grey0
   }),
   rightIconContainerStyle: {
-    marginRight: 8,
+    marginRight: 8
   },
   leftIconContainerStyle: {
-    marginLeft: 8,
+    marginLeft: 8
   },
   containerLight: theme => ({
     borderTopColor: '#e1e1e1',
     borderBottomColor: '#e1e1e1',
-    backgroundColor: theme.colors.grey5,
+    backgroundColor: theme.colors.grey5
   }),
   inputContainer: {
-    paddingHorizontal: 0,
+    paddingHorizontal: 0
   },
   inputStyle: theme => ({
     color: theme.colors.grey3,
-    marginLeft: 10,
+    marginLeft: 10
   }),
   inputContentContainer: theme => ({
     borderBottomWidth: 0,
     borderRadius: 3,
     overflow: 'hidden',
     minHeight: 30,
-    backgroundColor: theme.colors.searchBg,
+    backgroundColor: theme.colors.searchBg
   }),
   inputContentContainerLight: theme => ({
-    backgroundColor: theme.colors.grey4,
+    backgroundColor: theme.colors.grey4
   }),
   round: {
-    borderRadius: 15,
-  },
-};
+    borderRadius: 15
+  }
+}
 
-export default SearchBar;
+export default SearchBar

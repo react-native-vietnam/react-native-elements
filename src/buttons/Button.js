@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import {
   View,
   TouchableNativeFeedback,
@@ -7,30 +7,31 @@ import {
   ActivityIndicator,
   Platform,
   StyleSheet,
-} from 'react-native';
+  Text as NativeText
+} from 'react-native'
 
-import { withTheme, ViewPropTypes } from '../config';
-import { renderNode, nodeType, conditionalStyle, color } from '../helpers';
-import Icon from '../icons/Icon';
-import TextElement from '../text/Text';
+import { withTheme, ViewPropTypes } from '../config'
+import { renderNode, nodeType, conditionalStyle, color } from '../helpers'
+import Icon from '../icons/Icon'
+import TextElement from '../text/Text'
 
 const defaultLoadingProps = (type, theme) => ({
   color: type === 'solid' ? 'white' : theme.colors.primary,
-  size: 'small',
-});
+  size: 'small'
+})
 
 class Button extends Component {
-  componentDidMount() {
-    const { linearGradientProps, ViewComponent } = this.props;
+  componentDidMount () {
+    const { linearGradientProps, ViewComponent } = this.props
     if (linearGradientProps && !global.Expo && !ViewComponent) {
       /* eslint-disable no-console */
       console.error(
         `You need to pass a ViewComponent to use linearGradientProps !\nExample: ViewComponent={require('react-native-linear-gradient')}`
-      );
+      )
     }
   }
 
-  render() {
+  render () {
     const {
       TouchableComponent,
       containerStyle,
@@ -56,7 +57,7 @@ class Button extends Component {
         : View,
       theme,
       ...attributes
-    } = this.props;
+    } = this.props
 
     if (
       Platform.OS === 'android' &&
@@ -66,16 +67,16 @@ class Button extends Component {
         attributes.background = TouchableNativeFeedback.Ripple(
           'ThemeAttrAndroid',
           false
-        );
+        )
       } else {
-        attributes.background = TouchableNativeFeedback.SelectableBackground();
+        attributes.background = TouchableNativeFeedback.SelectableBackground()
       }
     }
 
     const loadingProps = {
       ...defaultLoadingProps(type, theme),
-      ...passedLoadingProps,
-    };
+      ...passedLoadingProps
+    }
 
     return (
       <View
@@ -83,10 +84,10 @@ class Button extends Component {
           styles.container,
           {
             borderRadius:
-              buttonStyle.borderRadius || styles.container.borderRadius,
+              buttonStyle.borderRadius || styles.container.borderRadius
           },
           containerStyle,
-          raised && !disabled && styles.raised(type),
+          raised && !disabled && styles.raised(type)
         ])}
       >
         <TouchableComponent
@@ -101,7 +102,7 @@ class Button extends Component {
               styles.button(type, theme),
               buttonStyle,
               disabled && styles.disabled(type, theme),
-              disabled && disabledStyle,
+              disabled && disabledStyle
             ])}
           >
             {loading && (
@@ -119,8 +120,8 @@ class Button extends Component {
               renderNode(Icon, icon, {
                 containerStyle: StyleSheet.flatten([
                   styles.iconContainer,
-                  iconContainerStyle,
-                ]),
+                  iconContainerStyle
+                ])
               })}
 
             {!loading && !!title && (
@@ -129,7 +130,7 @@ class Button extends Component {
                   styles.title(type, theme),
                   titleStyle,
                   disabled && styles.disabledTitle(theme),
-                  disabled && disabledTitleStyle,
+                  disabled && disabledTitleStyle
                 ])}
                 {...titleProps}
               >
@@ -143,19 +144,19 @@ class Button extends Component {
               renderNode(Icon, icon, {
                 containerStyle: StyleSheet.flatten([
                   styles.iconContainer,
-                  iconContainerStyle,
-                ]),
+                  iconContainerStyle
+                ])
               })}
           </ViewComponent>
         </TouchableComponent>
       </View>
-    );
+    )
   }
 }
 
 Button.propTypes = {
   title: PropTypes.string,
-  titleStyle: TextElement.propTypes.style,
+  titleStyle: NativeText.propTypes.style,
   titleProps: PropTypes.object,
   buttonStyle: ViewPropTypes.style,
   type: PropTypes.oneOf(['solid', 'clear', 'outline']),
@@ -172,27 +173,27 @@ Button.propTypes = {
   ViewComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   disabled: PropTypes.bool,
   disabledStyle: ViewPropTypes.style,
-  disabledTitleStyle: TextElement.propTypes.style,
+  disabledTitleStyle: NativeText.propTypes.style,
   raised: PropTypes.bool,
-  theme: PropTypes.object,
-};
+  theme: PropTypes.object
+}
 
 Button.defaultProps = {
   title: '',
   iconRight: false,
   TouchableComponent: Platform.select({
     android: TouchableNativeFeedback,
-    default: TouchableOpacity,
+    default: TouchableOpacity
   }),
   onPress: () => console.log('Please attach a method to this component'),
   type: 'solid',
   buttonStyle: {
-    borderRadius: 3,
+    borderRadius: 3
   },
   disabled: false,
   raised: false,
-  loading: false,
-};
+  loading: false
+}
 
 const styles = {
   button: (type, theme) => ({
@@ -203,21 +204,21 @@ const styles = {
     backgroundColor: type === 'solid' ? theme.colors.primary : 'transparent',
     padding: 8,
     borderWidth: type === 'outline' ? StyleSheet.hairlineWidth : 0,
-    borderColor: theme.colors.primary,
+    borderColor: theme.colors.primary
   }),
   container: {
-    borderRadius: 3,
+    borderRadius: 3
   },
   disabled: (type, theme) => ({
     ...conditionalStyle(type === 'solid', {
-      backgroundColor: theme.colors.disabled,
+      backgroundColor: theme.colors.disabled
     }),
     ...conditionalStyle(type === 'outline', {
-      borderColor: color(theme.colors.disabled).darken(0.3),
-    }),
+      borderColor: color(theme.colors.disabled).darken(0.3)
+    })
   }),
   disabledTitle: theme => ({
-    color: color(theme.colors.disabled).darken(0.3),
+    color: color(theme.colors.disabled).darken(0.3)
   }),
   title: (type, theme) => ({
     color: type === 'solid' ? 'white' : theme.colors.primary,
@@ -227,35 +228,35 @@ const styles = {
     paddingBottom: 1,
     ...Platform.select({
       android: {
-        fontFamily: 'sans-serif-medium',
+        fontFamily: 'sans-serif-medium'
       },
       default: {
-        fontSize: 18,
-      },
-    }),
+        fontSize: 18
+      }
+    })
   }),
   iconContainer: {
-    marginHorizontal: 5,
+    marginHorizontal: 5
   },
   raised: type =>
     type !== 'clear' && {
       backgroundColor: '#fff',
       ...Platform.select({
         android: {
-          elevation: 4,
+          elevation: 4
         },
         default: {
           shadowColor: 'rgba(0,0,0, .4)',
           shadowOffset: { height: 1, width: 1 },
           shadowOpacity: 1,
-          shadowRadius: 1,
-        },
-      }),
+          shadowRadius: 1
+        }
+      })
     },
   loading: {
-    marginVertical: 2,
-  },
-};
+    marginVertical: 2
+  }
+}
 
-export { Button };
-export default withTheme(Button, 'Button');
+export { Button }
+export default withTheme(Button, 'Button')

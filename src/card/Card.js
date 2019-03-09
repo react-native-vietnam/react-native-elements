@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, Platform, Image, StyleSheet } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { View, Platform, Image, StyleSheet } from 'react-native'
 
-import normalize from '../helpers/normalizeText';
+import normalize from '../helpers/normalizeText'
 import {
   BackgroundImage,
-  fonts,
+  theme,
   TextPropTypes,
   ViewPropTypes,
-  withTheme,
-} from '../config';
+  withTheme
+} from '../config'
 
-import TextElement from '../text/Text';
-import Divider from '../divider/Divider';
+import TextElement from '../text/Text'
+import Divider from '../divider/Divider'
 
 const Card = props => {
   const {
@@ -33,7 +33,7 @@ const Card = props => {
     imageProps,
     theme,
     ...attributes
-  } = props;
+  } = props
 
   return (
     <View
@@ -41,13 +41,13 @@ const Card = props => {
       style={StyleSheet.flatten([
         styles.container(theme),
         image && { padding: 0 },
-        containerStyle && containerStyle,
+        containerStyle && containerStyle
       ])}
     >
       <View
         style={StyleSheet.flatten([
           styles.wrapper,
-          wrapperStyle && wrapperStyle,
+          wrapperStyle && wrapperStyle
         ])}
       >
         {title === '' || React.isValidElement(title)
@@ -56,11 +56,11 @@ const Card = props => {
             title.length && (
               <View>
                 <TextElement
-                  testID="cardTitle"
+                  testID='cardTitle'
                   style={StyleSheet.flatten([
                     styles.cardTitle(theme),
                     image && styles.imageCardTitle,
-                    titleStyle && titleStyle,
+                    titleStyle && titleStyle
                   ])}
                   numberOfLines={titleNumberOfLines}
                 >
@@ -71,7 +71,7 @@ const Card = props => {
                   <Divider
                     style={StyleSheet.flatten([
                       styles.divider,
-                      dividerStyle && dividerStyle,
+                      dividerStyle && dividerStyle
                     ])}
                   />
                 )}
@@ -91,7 +91,7 @@ const Card = props => {
                     <TextElement
                       style={StyleSheet.flatten([
                         styles.featuredTitle,
-                        featuredTitleStyle && featuredTitleStyle,
+                        featuredTitleStyle && featuredTitleStyle
                       ])}
                     >
                       {featuredTitle}
@@ -101,7 +101,7 @@ const Card = props => {
                     <TextElement
                       style={StyleSheet.flatten([
                         styles.featuredSubtitle,
-                        featuredSubtitleStyle && featuredSubtitleStyle,
+                        featuredSubtitleStyle && featuredSubtitleStyle
                       ])}
                     >
                       {featuredSubtitle}
@@ -114,7 +114,7 @@ const Card = props => {
             <View
               style={StyleSheet.flatten([
                 { padding: 10 },
-                wrapperStyle && wrapperStyle,
+                wrapperStyle && wrapperStyle
               ])}
             >
               {children}
@@ -125,13 +125,13 @@ const Card = props => {
         {!image && children}
       </View>
     </View>
-  );
-};
+  )
+}
 
 Card.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.arrayOf(PropTypes.element)
   ]),
   containerStyle: ViewPropTypes.style,
   wrapperStyle: ViewPropTypes.style,
@@ -148,8 +148,8 @@ Card.propTypes = {
   imageWrapperStyle: ViewPropTypes.style,
   imageProps: PropTypes.object,
   titleNumberOfLines: PropTypes.number,
-  theme: PropTypes.object,
-};
+  theme: PropTypes.object
+}
 
 const styles = {
   container: theme => ({
@@ -161,15 +161,15 @@ const styles = {
     borderColor: theme.colors.grey5,
     ...Platform.select({
       android: {
-        elevation: 1,
+        elevation: 1
       },
       default: {
         shadowColor: 'rgba(0,0,0, .2)',
         shadowOffset: { height: 0, width: 0 },
         shadowOpacity: 1,
-        shadowRadius: 1,
-      },
-    }),
+        shadowRadius: 1
+      }
+    })
   }),
   featuredTitle: {
     fontSize: normalize(18),
@@ -177,12 +177,12 @@ const styles = {
     color: 'white',
     ...Platform.select({
       android: {
-        ...fonts.android.black,
+        ...theme.fonts.android.black
       },
       default: {
-        fontWeight: '800',
-      },
-    }),
+        fontWeight: '800'
+      }
+    })
   },
   featuredSubtitle: {
     fontSize: normalize(13),
@@ -190,35 +190,35 @@ const styles = {
     color: 'white',
     ...Platform.select({
       android: {
-        ...fonts.android.black,
+        ...theme.fonts.android.black
       },
       default: {
-        fontWeight: '400',
-      },
-    }),
+        fontWeight: '400'
+      }
+    })
   },
   wrapper: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   divider: {
-    marginBottom: 15,
+    marginBottom: 15
   },
   cardTitle: theme => ({
     fontSize: normalize(14),
     color: theme.colors.grey1,
     ...Platform.select({
       android: {
-        ...fonts.android.black,
+        ...theme.fonts.android.black
       },
       default: {
-        fontWeight: 'bold',
-      },
+        fontWeight: 'bold'
+      }
     }),
     textAlign: 'center',
-    marginBottom: 15,
+    marginBottom: 15
   }),
   imageCardTitle: {
-    marginTop: 15,
+    marginTop: 15
   },
   overlayContainer: {
     flex: 1,
@@ -230,9 +230,9 @@ const styles = {
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0,
-  },
-};
+    bottom: 0
+  }
+}
 
-export { Card };
-export default withTheme(Card, 'Card');
+export { Card }
+export default withTheme(Card, 'Card')

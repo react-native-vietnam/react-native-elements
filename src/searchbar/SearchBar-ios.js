@@ -1,89 +1,90 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import {
   TouchableOpacity,
   LayoutAnimation,
   UIManager,
   StyleSheet,
   View,
-  ActivityIndicator,
-} from 'react-native';
+  Text as NativeText,
+  ActivityIndicator
+} from 'react-native'
 
-import ViewPropTypes from '../config/ViewPropTypes';
-import Input from '../input/Input';
-import Icon from '../icons/Icon';
-import Text from '../text/Text';
-import { renderNode, nodeType } from '../helpers';
+import ViewPropTypes from '../config/ViewPropTypes'
+import Input from '../input/Input'
+import Icon from '../icons/Icon'
+import Text from '../text/Text'
+import { renderNode, nodeType } from '../helpers'
 
-const IOS_GRAY = '#7d7d7d';
+const IOS_GRAY = '#7d7d7d'
 const defaultSearchIcon = {
   type: 'ionicon',
   size: 20,
   name: 'ios-search',
-  color: IOS_GRAY,
-};
+  color: IOS_GRAY
+}
 const defaultClearIcon = {
   type: 'ionicon',
   name: 'ios-close-circle',
   size: 20,
-  color: IOS_GRAY,
-};
+  color: IOS_GRAY
+}
 
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-    const { value } = props;
+  constructor (props) {
+    super(props)
+    const { value } = props
 
     this.state = {
       hasFocus: false,
       isEmpty: value ? value === '' : true,
-      cancelButtonWidth: null,
-    };
+      cancelButtonWidth: null
+    }
   }
 
   focus = () => {
-    this.input.focus();
-  };
+    this.input.focus()
+  }
 
   blur = () => {
-    this.input.blur();
-  };
+    this.input.blur()
+  }
 
   clear = () => {
-    this.input.clear();
-    this.onChangeText('');
-    this.props.onClear();
-  };
+    this.input.clear()
+    this.onChangeText('')
+    this.props.onClear()
+  }
 
   cancel = () => {
-    this.blur();
-    this.props.onCancel();
-  };
+    this.blur()
+    this.props.onCancel()
+  }
 
   onFocus = () => {
-    this.props.onFocus();
-    UIManager.configureNextLayoutAnimation && LayoutAnimation.easeInEaseOut();
+    this.props.onFocus()
+    UIManager.configureNextLayoutAnimation && LayoutAnimation.easeInEaseOut()
 
     this.setState({
-      hasFocus: true,
-    });
-  };
+      hasFocus: true
+    })
+  }
 
   onBlur = () => {
-    this.props.onBlur();
-    UIManager.configureNextLayoutAnimation && LayoutAnimation.easeInEaseOut();
+    this.props.onBlur()
+    UIManager.configureNextLayoutAnimation && LayoutAnimation.easeInEaseOut()
 
     this.setState({
-      hasFocus: false,
-    });
-  };
+      hasFocus: false
+    })
+  }
 
   onChangeText = text => {
-    this.props.onChangeText(text);
-    this.setState({ isEmpty: text === '' });
-  };
+    this.props.onChangeText(text)
+    this.setState({ isEmpty: text === '' })
+  }
 
-  render() {
+  render () {
     const {
       cancelButtonProps,
       cancelButtonTitle,
@@ -98,10 +99,10 @@ class SearchBar extends Component {
       loadingProps,
       searchIcon,
       ...attributes
-    } = this.props;
-    const { hasFocus, isEmpty } = this.state;
+    } = this.props
+    const { hasFocus, isEmpty } = this.state
 
-    const { style: loadingStyle, ...otherLoadingProps } = loadingProps;
+    const { style: loadingStyle, ...otherLoadingProps } = loadingProps
 
     const {
       buttonStyle,
@@ -111,39 +112,39 @@ class SearchBar extends Component {
       buttonDisabledStyle,
       buttonDisabledTextStyle,
       ...otherCancelButtonProps
-    } = cancelButtonProps;
+    } = cancelButtonProps
 
     return (
       <View style={StyleSheet.flatten([styles.container, containerStyle])}>
         <Input
           {...attributes}
-          testID="searchInput"
+          testID='searchInput'
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onChangeText={this.onChangeText}
           ref={input => {
-            this.input = input;
+            this.input = input
           }}
           inputStyle={StyleSheet.flatten([styles.input, inputStyle])}
           containerStyle={{
-            paddingHorizontal: 0,
+            paddingHorizontal: 0
           }}
           inputContainerStyle={StyleSheet.flatten([
             styles.inputContainer,
             hasFocus && { marginRight: this.state.cancelButtonWidth },
-            inputContainerStyle,
+            inputContainerStyle
           ])}
           leftIcon={renderNode(Icon, searchIcon, defaultSearchIcon)}
           leftIconContainerStyle={StyleSheet.flatten([
             styles.leftIconContainerStyle,
-            leftIconContainerStyle,
+            leftIconContainerStyle
           ])}
           placeholderTextColor={placeholderTextColor}
           rightIcon={
             <View style={{ flexDirection: 'row' }}>
               {showLoading && (
                 <ActivityIndicator
-                  key="loading"
+                  key='loading'
                   style={StyleSheet.flatten([{ marginRight: 5 }, loadingStyle])}
                   {...otherLoadingProps}
                 />
@@ -152,13 +153,13 @@ class SearchBar extends Component {
                 renderNode(Icon, clearIcon, {
                   ...defaultClearIcon,
                   key: 'cancel',
-                  onPress: this.clear,
+                  onPress: this.clear
                 })}
             </View>
           }
           rightIconContainerStyle={StyleSheet.flatten([
             styles.rightIconContainerStyle,
-            rightIconContainerStyle,
+            rightIconContainerStyle
           ])}
         />
 
@@ -167,15 +168,15 @@ class SearchBar extends Component {
             styles.cancelButtonContainer,
             {
               opacity: this.state.cancelButtonWidth === null ? 0 : 1,
-              right: hasFocus ? 0 : -this.state.cancelButtonWidth,
-            },
+              right: hasFocus ? 0 : -this.state.cancelButtonWidth
+            }
           ])}
           onLayout={event =>
             this.setState({ cancelButtonWidth: event.nativeEvent.layout.width })
           }
         >
           <TouchableOpacity
-            accessibilityRole="button"
+            accessibilityRole='button'
             onPress={this.cancel}
             disabled={buttonDisabled}
             {...otherCancelButtonProps}
@@ -187,7 +188,7 @@ class SearchBar extends Component {
                   buttonColor && { color: buttonColor },
                   buttonTextStyle,
                   buttonDisabled &&
-                    (buttonDisabledTextStyle || styles.buttonTextDisabled),
+                    (buttonDisabledTextStyle || styles.buttonTextDisabled)
                 ]}
                 disabled={buttonDisabled}
               >
@@ -197,7 +198,7 @@ class SearchBar extends Component {
           </TouchableOpacity>
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -218,9 +219,9 @@ SearchBar.propTypes = {
   leftIconContainerStyle: ViewPropTypes.style,
   rightIconContainerStyle: ViewPropTypes.style,
   inputContainerStyle: ViewPropTypes.style,
-  inputStyle: Text.propTypes.style,
-  placeholderTextColor: PropTypes.string,
-};
+  inputStyle: NativeText.propTypes.style,
+  placeholderTextColor: PropTypes.string
+}
 
 SearchBar.defaultProps = {
   value: '',
@@ -235,8 +236,8 @@ SearchBar.defaultProps = {
   onChangeText: () => null,
   placeholderTextColor: IOS_GRAY,
   searchIcon: defaultSearchIcon,
-  clearIcon: defaultClearIcon,
-};
+  clearIcon: defaultClearIcon
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -245,10 +246,10 @@ const styles = StyleSheet.create({
     paddingTop: 13,
     flexDirection: 'row',
     overflow: 'hidden',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   input: {
-    marginLeft: 6,
+    marginLeft: 6
   },
   inputContainer: {
     borderBottomWidth: 0,
@@ -256,26 +257,26 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     minHeight: 36,
     marginLeft: 8,
-    marginRight: 8,
+    marginRight: 8
   },
   rightIconContainerStyle: {
-    marginRight: 8,
+    marginRight: 8
   },
   leftIconContainerStyle: {
-    marginLeft: 8,
+    marginLeft: 8
   },
   buttonTextStyle: {
     color: '#007aff',
     textAlign: 'center',
     padding: 8,
-    fontSize: 18,
+    fontSize: 18
   },
   buttonTextDisabled: {
-    color: '#cdcdcd',
+    color: '#cdcdcd'
   },
   cancelButtonContainer: {
-    position: 'absolute',
-  },
-});
+    position: 'absolute'
+  }
+})
 
-export default SearchBar;
+export default SearchBar

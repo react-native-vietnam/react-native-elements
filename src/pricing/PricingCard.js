@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, Platform, StyleSheet } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { View, Platform, StyleSheet } from 'react-native'
 
-import { normalizeText } from '../helpers';
-import { fonts, ViewPropTypes, withTheme } from '../config';
+import { normalizeText } from '../helpers'
+import { theme, ViewPropTypes, withTheme } from '../config'
 
-import Text from '../text/Text';
-import Button from '../buttons/Button';
-import Icon from '../icons/Icon';
+import Text from '../text/Text'
+import Button from '../buttons/Button'
+import Icon from '../icons/Icon'
 
 const PricingCard = props => {
-  const { theme, ...rest } = props;
+  const { theme, ...rest } = props
 
   const {
     containerStyle,
@@ -25,28 +25,28 @@ const PricingCard = props => {
     infoStyle,
     onButtonPress,
     ...attributes
-  } = rest;
+  } = rest
 
   return (
     <View
       {...attributes}
       style={StyleSheet.flatten([
         styles.container(theme),
-        containerStyle && containerStyle,
+        containerStyle && containerStyle
       ])}
     >
       <View
         style={StyleSheet.flatten([
           styles.wrapper,
-          wrapperStyle && wrapperStyle,
+          wrapperStyle && wrapperStyle
         ])}
       >
         <Text
-          testID="pricingCardTitle"
+          testID='pricingCardTitle'
           style={StyleSheet.flatten([
             styles.pricingTitle,
             titleStyle,
-            { color },
+            { color }
           ])}
         >
           {title}
@@ -70,15 +70,15 @@ const PricingCard = props => {
           buttonStyle={StyleSheet.flatten([
             styles.button,
             button.buttonStyle,
-            { backgroundColor: color },
+            { backgroundColor: color }
           ])}
           onPress={onButtonPress}
-          icon={<Icon name={button.icon} size={15} color="white" />}
+          icon={<Icon name={button.icon} size={15} color='white' />}
         />
       </View>
     </View>
-  );
-};
+  )
+}
 
 PricingCard.propTypes = {
   containerStyle: ViewPropTypes.style,
@@ -92,12 +92,12 @@ PricingCard.propTypes = {
   titleStyle: PropTypes.object,
   pricingStyle: PropTypes.object,
   infoStyle: PropTypes.object,
-  theme: PropTypes.object,
-};
+  theme: PropTypes.object
+}
 
 PricingCard.defaultProps = {
-  info: [],
-};
+  info: []
+}
 
 const styles = {
   container: theme => ({
@@ -109,30 +109,30 @@ const styles = {
     borderColor: theme.colors.grey5,
     ...Platform.select({
       android: {
-        elevation: 1,
+        elevation: 1
       },
       default: {
         shadowColor: 'rgba(0,0,0, .2)',
         shadowOffset: { height: 1, width: 0 },
         shadowOpacity: 0.5,
-        shadowRadius: 0.5,
-      },
-    }),
+        shadowRadius: 0.5
+      }
+    })
   }),
   wrapper: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   pricingTitle: {
     textAlign: 'center',
     fontSize: normalizeText(30),
     ...Platform.select({
       android: {
-        ...fonts.android.black,
+        ...theme.fonts.android.black
       },
       default: {
-        fontWeight: '800',
-      },
-    }),
+        fontWeight: '800'
+      }
+    })
   },
   pricingPrice: {
     textAlign: 'center',
@@ -141,12 +141,12 @@ const styles = {
     fontSize: normalizeText(40),
     ...Platform.select({
       android: {
-        ...fonts.android.bold,
+        ...theme.fonts.android.bold
       },
       default: {
-        fontWeight: '700',
-      },
-    }),
+        fontWeight: '700'
+      }
+    })
   },
   pricingInfo: theme => ({
     textAlign: 'center',
@@ -155,18 +155,18 @@ const styles = {
     color: theme.colors.grey3,
     ...Platform.select({
       android: {
-        ...fonts.android.bold,
+        ...theme.fonts.android.bold
       },
       default: {
-        fontWeight: '600',
-      },
-    }),
+        fontWeight: '600'
+      }
+    })
   }),
   button: {
     marginTop: 15,
-    marginBottom: 10,
-  },
-};
+    marginBottom: 10
+  }
+}
 
-export { PricingCard };
-export default withTheme(PricingCard, 'PricingCard');
+export { PricingCard }
+export default withTheme(PricingCard, 'PricingCard')
