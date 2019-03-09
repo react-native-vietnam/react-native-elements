@@ -8,7 +8,9 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
+import { Text, Button, ThemeProvider, withTheme, theme } from 'react-native-elements'
+import customTheme from './theme'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -18,18 +20,20 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
+class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
+        <Button title="Change theme" onPress={() => this.props.updateTheme(customTheme)} />
       </View>
     );
   }
 }
 
+const Themed = withTheme(App)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -48,3 +52,13 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+export default class Root extends React.PureComponent {
+  render() {
+    return (
+      <ThemeProvider value={theme}>
+        <Themed />
+      </ThemeProvider>
+    )
+  }
+}
