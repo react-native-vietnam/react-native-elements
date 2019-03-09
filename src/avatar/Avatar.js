@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  Text,
   Image as RNImage,
   Platform,
   StyleSheet,
@@ -15,6 +14,7 @@ import {
 import { withTheme, ViewPropTypes } from '../config';
 import { renderNode, nodeType } from '../helpers';
 
+import Text from '../text'
 import Icon from '../icons/Icon';
 import Image from '../image/Image';
 

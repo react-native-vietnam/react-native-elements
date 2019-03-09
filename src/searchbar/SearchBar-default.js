@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, View, Text, StyleSheet } from 'react-native';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
 
 import { ViewPropTypes } from '../config';
 import { renderNode, nodeType } from '../helpers';
 
 import Input from '../input/Input';
 import Icon from '../icons/Icon';
+import Text from '../text/Text';
 
 const defaultSearchIcon = theme => ({
   type: 'material',

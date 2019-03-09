@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   View,
-  Text,
   TouchableNativeFeedback,
   TouchableOpacity,
   ActivityIndicator,
@@ -13,6 +12,7 @@ import {
 import { withTheme, ViewPropTypes } from '../config';
 import { renderNode, nodeType, conditionalStyle, color } from '../helpers';
 import Icon from '../icons/Icon';
+import TextElement from '../text/Text';
 
 const defaultLoadingProps = (type, theme) => ({
   color: type === 'solid' ? 'white' : theme.colors.primary,
@@ -124,7 +124,7 @@ class Button extends Component {
               })}
 
             {!loading && !!title && (
-              <Text
+              <TextElement
                 style={StyleSheet.flatten([
                   styles.title(type, theme),
                   titleStyle,
@@ -134,7 +134,7 @@ class Button extends Component {
                 {...titleProps}
               >
                 {title}
-              </Text>
+              </TextElement>
             )}
 
             {!loading &&
@@ -155,7 +155,7 @@ class Button extends Component {
 
 Button.propTypes = {
   title: PropTypes.string,
-  titleStyle: Text.propTypes.style,
+  titleStyle: TextElement.propTypes.style,
   titleProps: PropTypes.object,
   buttonStyle: ViewPropTypes.style,
   type: PropTypes.oneOf(['solid', 'clear', 'outline']),
@@ -172,7 +172,7 @@ Button.propTypes = {
   ViewComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   disabled: PropTypes.bool,
   disabledStyle: ViewPropTypes.style,
-  disabledTitleStyle: Text.propTypes.style,
+  disabledTitleStyle: TextElement.propTypes.style,
   raised: PropTypes.bool,
   theme: PropTypes.object,
 };

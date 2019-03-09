@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import { ViewPropTypes, withTheme } from '../config';
 import { renderNode } from '../helpers';
+import TextElement from '../text/Text';
 
 const Badge = props => {
   const {
@@ -18,7 +19,7 @@ const Badge = props => {
     ...attributes
   } = props;
 
-  const element = renderNode(Text, value, {
+  const element = renderNode(TextElement, value, {
     style: StyleSheet.flatten([styles.text, textStyle && textStyle]),
   });
 
@@ -42,7 +43,7 @@ const Badge = props => {
 Badge.propTypes = {
   containerStyle: ViewPropTypes.style,
   badgeStyle: ViewPropTypes.style,
-  textStyle: Text.propTypes.style,
+  textStyle: TextElement.propTypes.style,
   value: PropTypes.node,
   onPress: PropTypes.func,
   Component: PropTypes.func,

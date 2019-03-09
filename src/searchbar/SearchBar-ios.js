@@ -7,12 +7,12 @@ import {
   StyleSheet,
   View,
   ActivityIndicator,
-  Text,
 } from 'react-native';
 
 import ViewPropTypes from '../config/ViewPropTypes';
 import Input from '../input/Input';
 import Icon from '../icons/Icon';
+import Text from '../text/Text';
 import { renderNode, nodeType } from '../helpers';
 
 const IOS_GRAY = '#7d7d7d';

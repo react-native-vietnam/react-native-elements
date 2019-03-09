@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Text,
   View,
   TextInput,
   Animated,
@@ -14,6 +13,7 @@ import { nodeType, renderNode } from '../helpers';
 import { fonts, withTheme, ViewPropTypes, TextPropTypes } from '../config';
 
 import Icon from '../icons/Icon';
+import Text from '../text/Text';
 
 const renderText = (content, defaultProps, style) =>
   renderNode(Text, content, {

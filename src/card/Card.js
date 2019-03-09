@@ -11,7 +11,7 @@ import {
   withTheme,
 } from '../config';
 
-import Text from '../text/Text';
+import TextElement from '../text/Text';
 import Divider from '../divider/Divider';
 
 const Card = props => {
@@ -55,7 +55,7 @@ const Card = props => {
           : title &&
             title.length && (
               <View>
-                <Text
+                <TextElement
                   testID="cardTitle"
                   style={StyleSheet.flatten([
                     styles.cardTitle(theme),
@@ -65,7 +65,7 @@ const Card = props => {
                   numberOfLines={titleNumberOfLines}
                 >
                   {title}
-                </Text>
+                </TextElement>
 
                 {!image && (
                   <Divider
@@ -88,24 +88,24 @@ const Card = props => {
               {(featuredTitle || featuredSubtitle) && (
                 <View style={styles.overlayContainer}>
                   {featuredTitle && (
-                    <Text
+                    <TextElement
                       style={StyleSheet.flatten([
                         styles.featuredTitle,
                         featuredTitleStyle && featuredTitleStyle,
                       ])}
                     >
                       {featuredTitle}
-                    </Text>
+                    </TextElement>
                   )}
                   {featuredSubtitle && (
-                    <Text
+                    <TextElement
                       style={StyleSheet.flatten([
                         styles.featuredSubtitle,
                         featuredSubtitleStyle && featuredSubtitleStyle,
                       ])}
                     >
                       {featuredSubtitle}
-                    </Text>
+                    </TextElement>
                   )}
                 </View>
               )}

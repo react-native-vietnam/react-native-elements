@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { StyleSheet, View, ActivityIndicator, Text } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 
 import { ViewPropTypes } from '../config';
 import { nodeType, renderNode } from '../helpers';
 
 import Input from '../input/Input';
 import Icon from '../icons/Icon';
+import Text from '../text/Text';
 
 const ANDROID_GRAY = 'rgba(0, 0, 0, 0.54)';
 
